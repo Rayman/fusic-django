@@ -3,13 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "start": "next dev",
+    "build": "next build && next export --outdir build",
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy",
+    "firebase": "firebase",
+    "format": "prettier --write {package,firebase,firestore.indexes,components/**/*,pages/**/*,public/**/*}.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "dependencies": {
+    "firebase": "^7.6.1",
     "next": "9.1.6",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "react-firebase-hooks": "^2.1.1"
+  },
+  "devDependencies": {
+    "firebase-tools": "^7.11.0",
+    "prettier": "1.19.1"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
   }
 }
