@@ -1,15 +1,22 @@
 import React from 'react';
-import { useCollectionOnce } from 'react-firebase-hooks/firestore';
+import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import firebase from './firebase';
 
 export default function RadioList() {
-  const [snapshot, loading, error] = useCollectionOnce(
-    firebase.firestore().collection('radios')
+  const [radios, loading, error] = useCollectionDataOnce(
+    firebase.firestore().collection('radios'),
+    {
+      idField: 'id',
+    }
   );
-  console.log(snapshot, loading, error);
+  if (error) throw error;
+  if (loading) return <div>Loading...</div>;
+
   return (
     <ul>
-      <li>hoi</li>
+      {radios.map(radio => (
+        <li key={radio.id}>{radio.name}</li>
+      ))}
     </ul>
   );
 }

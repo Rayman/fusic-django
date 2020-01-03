@@ -11,9 +11,12 @@
     "format": "prettier --write {package,firebase,firestore.indexes,components/**/*,pages/**/*,public/**/*}.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "bootstrap": "^4.4.1",
     "firebase": "^7.6.1",
     "next": "9.1.6",
     "react": "16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "16.12.0",
     "react-firebase-hooks": "^2.1.1"
   },
