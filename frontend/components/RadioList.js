@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
-import firebase from './firebase';
+import firebase from '../firebase';
+import 'firebase/firestore';
 
 export default function RadioList() {
   const [radios, loading, error] = useCollectionDataOnce(
