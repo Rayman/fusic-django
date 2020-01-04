@@ -1,5 +1,8 @@
-// next.config.js
 const withCSS = require('@zeit/next-css')
-module.exports = withCSS({
-  /* config options here */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 })
+
+module.exports = withBundleAnalyzer(withCSS({
+  /* config options here */
+}));

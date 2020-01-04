@@ -8,16 +8,20 @@
     "predeploy": "npm run build",
     "deploy": "firebase deploy",
     "firebase": "firebase",
-    "format": "prettier --write {package,firebase,firestore.indexes,components/**/*,pages/**/*,public/**/*}.{js,jsx,ts,tsx,json,css,scss,md}"
+    "format": "prettier --write {package,firebase,firestore.indexes,components/**/*,pages/**/*,public/**/*}.{js,jsx,ts,tsx,json,css,scss,md}",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^9.1.7",
     "@zeit/next-css": "^1.0.1",
     "bootstrap": "^4.4.1",
     "firebase": "^7.6.1",
-    "next": "9.1.6",
-    "react": "16.12.0",
+    "next": "^9.1.7",
+    "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
-    "react-dom": "16.12.0",
+    "react-dom": "^16.12.0",
     "react-firebase-hooks": "^2.1.1"
   },
   "devDependencies": {
