@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 import firebase from '../firebase';
+import 'firebase/firestore';
 
 export default function AddRadio() {
   const [show, setShow] = useState(false);
@@ -17,7 +18,7 @@ export default function AddRadio() {
     const data = {
       ...Object.fromEntries(new FormData(event.target)),
       owner: firebase.auth().currentUser.uid,
-      created: firebase.database.ServerValue.TIMESTAMP,
+      created: firebase.firestore.FieldValue.serverTimestamp(),
     };
     console.log('Create new radio:', data);
 
