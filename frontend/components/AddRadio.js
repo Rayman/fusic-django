@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-import 'firebase/auth';
+import firebase from '../firebase';
 
 export default function AddRadio() {
   const [show, setShow] = useState(false);
@@ -14,9 +14,13 @@ export default function AddRadio() {
   function onCreate(e) {
     e.preventDefault();
 
-    const data = Object.fromEntries(new FormData(event.target));
+    const data = {
+      ...Object.fromEntries(new FormData(event.target)),
+      owner: firebase.auth().currentUser.uid,
+      created: firebase.database.ServerValue.TIMESTAMP,
+    };
+    console.log('Create new radio:', data);
 
-    // Add a new document with a generated id.
     firebase
       .firestore()
       .collection('radios')

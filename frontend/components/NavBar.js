@@ -6,6 +6,8 @@ import 'firebase/auth';
 
 import firebase from '../firebase';
 
+import './NavBar.css';
+
 export default function NavBar() {
   const [user, loading, error] = useAuthState(firebase.auth());
 
@@ -20,17 +22,18 @@ export default function NavBar() {
     firebase.auth().signOut();
   }
 
-  if (loading) return null;
+  let loginLogoutButton = null;
+  if (!loading) {
+    loginLogoutButton = user ? (
+      <Button className="float-right" variant="link" onClick={logout}>
+        Logout
+      </Button>
+    ) : (
+      <Button className="float-right" variant="link" onClick={login}>
+        Login
+      </Button>
+    );
+  }
 
-  console.log('gooooo', user);
-
-  return user ? (
-    <Button variant="link" onClick={logout}>
-      Logout
-    </Button>
-  ) : (
-    <Button variant="link" onClick={login}>
-      Login
-    </Button>
-  );
+  return <div className="NavBar">{loginLogoutButton}</div>;
 }
