@@ -1,14 +1,15 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
-import 'firebase/auth';
 
 import firebase from '../firebase';
+import 'firebase/auth';
+
+import NoSSR from '../components/NoSSR';
 
 import './NavBar.css';
 
-export default function NavBar() {
+function LoginLogoutButton() {
   const [user, loading, error] = useAuthState(firebase.auth());
 
   if (error) throw error;
@@ -22,9 +23,9 @@ export default function NavBar() {
     firebase.auth().signOut();
   }
 
-  let loginLogoutButton = null;
-  if (!loading) {
-    loginLogoutButton = user ? (
+  if (loading) return null;
+  else {
+    return user ? (
       <Button className="float-right" variant="link" onClick={logout}>
         Logout
       </Button>
@@ -34,6 +35,14 @@ export default function NavBar() {
       </Button>
     );
   }
+}
 
-  return <div className="NavBar">{loginLogoutButton}</div>;
+export default function NavBar() {
+  return (
+    <div className="NavBar">
+      <NoSSR>
+        <LoginLogoutButton />
+      </NoSSR>
+    </div>
+  );
 }

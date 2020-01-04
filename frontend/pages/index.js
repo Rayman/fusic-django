@@ -8,7 +8,6 @@ import RadioList from '../components/RadioList';
 import AddRadio from '../components/AddRadio';
 import NavBar from '../components/NavBar';
 import Nav from '../components/Nav';
-import NoSSR from '../components/NoSSR';
 
 export default function Home() {
   return (
@@ -21,16 +20,12 @@ export default function Home() {
         <Row>
           <Nav />
           <Col>
-            <NoSSR>
-              <NavBar />
-            </NoSSR>
+            <NavBar />
 
             <h1>
               Hello <AddRadio />
             </h1>
-            <NoSSR>
-              <RadioList />
-            </NoSSR>
+            <RadioList />
           </Col>
         </Row>
       </Container>

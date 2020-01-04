@@ -1,10 +1,13 @@
 import React from 'react';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
-import firebase from '../firebase';
-import 'firebase/firestore';
 import Link from 'next/link';
 
-export default function RadioList() {
+import firebase from '../firebase';
+import 'firebase/firestore';
+
+import NoSSR from '../components/NoSSR';
+
+function RadioList() {
   const [radios, loading, error] = useCollectionDataOnce(
     firebase.firestore().collection('radios'),
     {
@@ -24,5 +27,13 @@ export default function RadioList() {
         </li>
       ))}
     </ul>
+  );
+}
+
+export default function RadioListWrapper() {
+  return (
+    <NoSSR>
+      <RadioList />
+    </NoSSR>
   );
 }
