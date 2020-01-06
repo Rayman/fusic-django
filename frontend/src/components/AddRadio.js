@@ -16,7 +16,7 @@ export default function AddRadio() {
     e.preventDefault();
 
     const data = {
-      ...Object.fromEntries(new FormData(event.target)),
+      ...Object.fromEntries(new FormData(e.target)),
       owner: firebase.auth().currentUser.uid,
       created: firebase.firestore.FieldValue.serverTimestamp(),
     };

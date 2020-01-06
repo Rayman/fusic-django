@@ -68,5 +68,9 @@ node_modules/
 /.next/
 /out/
 
+# GatsbyJS
+/.cache/
+
 # production
-/build
+/build/
+/public/

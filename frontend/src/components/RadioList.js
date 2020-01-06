@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
-import Link from 'next/link';
+import { Link } from 'gatsby';
 
 import firebase from '../firebase';
 import 'firebase/firestore';
@@ -21,9 +21,7 @@ function RadioList() {
     <ul>
       {radios.map(radio => (
         <li key={radio.id}>
-          <Link href={'/radios/' + radio.id}>
-            <a>{radio.name}</a>
-          </Link>
+          <Link to={'/radios/' + radio.id}>{radio.name}</Link>
         </li>
       ))}
     </ul>
