@@ -5,6 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from '../firebase';
 import 'firebase/auth';
 
+import NoSSR from '../components/NoSSR';
+
 import './NavBar.css';
 
 function LoginLogoutButton() {
@@ -38,7 +40,9 @@ function LoginLogoutButton() {
 export default function NavBar() {
   return (
     <div className="NavBar">
-      <LoginLogoutButton />
+      <NoSSR>
+        <LoginLogoutButton />
+      </NoSSR>
     </div>
   );
 }

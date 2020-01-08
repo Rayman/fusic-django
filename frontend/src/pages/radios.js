@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import NavBar from '../components/NavBar';
 import Nav from '../components/Nav';
 import Radio from '../components/Radio';
+import NoSSR from '../components/NoSSR';
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
         <Row>
           <Nav />
           <Col>
-            <NavBar />
+            <NoSSR>
+              <NavBar />
+            </NoSSR>
 
             <Router>
               <Radio path="/radios/:radioId" />
