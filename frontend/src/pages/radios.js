@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col';
 
 import NavBar from '../components/NavBar';
 import Nav from '../components/Nav';
-import NoSSR from '../components/NoSSR';
 
 export default function Home() {
   return (
@@ -14,9 +13,7 @@ export default function Home() {
         <Row>
           <Nav />
           <Col>
-            <NoSSR>
-              <NavBar />
-            </NoSSR>
+            <NavBar />
 
             <h1>Hello</h1>
           </Col>

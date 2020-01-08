@@ -5,9 +5,7 @@ import { Link } from 'gatsby';
 import firebase from '../firebase';
 import 'firebase/firestore';
 
-import NoSSR from '../components/NoSSR';
-
-function RadioList() {
+export default function RadioList() {
   const [radios, loading, error] = useCollectionDataOnce(
     firebase.firestore().collection('radios'),
     {
@@ -25,13 +23,5 @@ function RadioList() {
         </li>
       ))}
     </ul>
-  );
-}
-
-export default function RadioListWrapper() {
-  return (
-    <NoSSR>
-      <RadioList />
-    </NoSSR>
   );
 }
