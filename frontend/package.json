@@ -8,20 +8,23 @@
     "predeploy": "npm run build",
     "deploy": "firebase deploy",
     "firebase": "firebase",
+    "analyse": "ANALYSE_BUNDLE=1 npm run build",
     "format": "prettier --write {package,firebase,firestore.indexes,gatsby*,src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
     "firebase": "^7.6.1",
-    "gatsby": "^2.18.17",
-    "gatsby-plugin-create-client-paths": "^2.1.20",
+    "gatsby": "^2.18.21",
+    "gatsby-plugin-create-client-paths": "^2.1.21",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
-    "react-firebase-hooks": "^2.1.1"
+    "react-firebase-hooks": "^2.1.1",
+    "react-icons": "^3.8.0"
   },
   "devDependencies": {
     "firebase-tools": "^7.11.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.8",
     "prettier": "1.19.1"
   },
   "prettier": {
