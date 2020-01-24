@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from .models import Playlist, Radio, RadioVote, Song
 from rest_framework import serializers
+
+from .models import Playlist, Radio, RadioVote, Song
 
 
 class UserSerializer(serializers.ModelSerializer):

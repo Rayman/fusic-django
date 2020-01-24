@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Playlist, Song, PlaylistEntry, RadioVote, Radio
+
+from .models import Playlist, PlaylistEntry, Radio, RadioVote, Song
 
 admin.site.register(Song)
 

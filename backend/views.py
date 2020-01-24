@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from rest_framework import status
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .permissions import IsStaffOrReadOnly
 from .models import Playlist, Radio, RadioVote
-from .serializers import PlaylistSerializer, UserSerializer, RadioSerializer
+from .permissions import IsStaffOrReadOnly
+from .serializers import PlaylistSerializer, RadioSerializer, UserSerializer
 
 
 class PlaylistViewSet(viewsets.ModelViewSet):
