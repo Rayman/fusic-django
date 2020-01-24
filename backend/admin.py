@@ -9,12 +9,10 @@ class PlaylistEntryInline(admin.TabularInline):
     # extra = 3
 
 
+@admin.register(Playlist)
 class PlaylistAdmin(admin.ModelAdmin):
     inlines = [PlaylistEntryInline]
     list_display = ("name", "created_date", "modified_date")
-
-
-admin.site.register(Playlist, PlaylistAdmin)
 
 
 class RadioVoteInline(admin.TabularInline):
@@ -22,9 +20,7 @@ class RadioVoteInline(admin.TabularInline):
     # extra = 3
 
 
+@admin.register(Radio)
 class RadioAdmin(admin.ModelAdmin):
     inlines = [RadioVoteInline]
     list_display = ("name", "created_date", "modified_date")
-
-
-admin.site.register(Radio, RadioAdmin)
