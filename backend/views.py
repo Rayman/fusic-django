@@ -21,25 +21,29 @@ class RadioViewSet(viewsets.ModelViewSet):
     serializer_class = RadioSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=["post"])
     def upvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
-        if 'song_id' not in request.data:
+        if "song_id" not in request.data:
             return Response(None, status=status.HTTP_400_BAD_REQUEST)
         try:
-            radio.votes.create(owner_id=request.user.id, song_id=request.data['song_id'])
+            radio.votes.create(
+                owner_id=request.user.id, song_id=request.data["song_id"]
+            )
         except IntegrityError:
             return Response(status=status.HTTP_409_CONFLICT)
         else:
             return Response(None, status=status.HTTP_201_CREATED)
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=["post"])
     def downvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
-        if 'song_id' not in request.data:
+        if "song_id" not in request.data:
             return Response(None, status=status.HTTP_400_BAD_REQUEST)
         try:
-            radio.votes.get(owner_id=request.user.id, song_id=request.data['song_id']).delete()
+            radio.votes.get(
+                owner_id=request.user.id, song_id=request.data["song_id"]
+            ).delete()
         except RadioVote.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:

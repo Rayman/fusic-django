@@ -11,7 +11,7 @@ class PlaylistEntryInline(admin.TabularInline):
 
 class PlaylistAdmin(admin.ModelAdmin):
     inlines = [PlaylistEntryInline]
-    list_display = ('name', 'created_date', 'modified_date')
+    list_display = ("name", "created_date", "modified_date")
 
 
 admin.site.register(Playlist, PlaylistAdmin)
@@ -24,7 +24,7 @@ class RadioVoteInline(admin.TabularInline):
 
 class RadioAdmin(admin.ModelAdmin):
     inlines = [RadioVoteInline]
-    list_display = ('name', 'created_date', 'modified_date')
+    list_display = ("name", "created_date", "modified_date")
 
 
 admin.site.register(Radio, RadioAdmin)

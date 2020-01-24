@@ -18,7 +18,7 @@ class RadioBinding(WebsocketBinding):
 
     @classmethod
     def group_names(cls, instance):
-        return ['radios-%s' % instance.pk]
+        return ["radios-%s" % instance.pk]
 
     def run_action(self, action, pk, data):
         """
@@ -37,14 +37,18 @@ class RadioBinding(WebsocketBinding):
         return True
 
     def sub(self, pk):
-        logger.info('sub: %s', pk)
+        logger.info("sub: %s", pk)
         payload = self.serialize(self.model.objects.get(pk=pk), CREATE)
-        self.kwargs['multiplexer'].send(payload)
-        Group('radios-%s' % pk, channel_layer=self.message.channel_layer).add(self.message.reply_channel)
+        self.kwargs["multiplexer"].send(payload)
+        Group("radios-%s" % pk, channel_layer=self.message.channel_layer).add(
+            self.message.reply_channel
+        )
 
     def unsub(self, pk):
-        logger.info('unsub: %s', pk)
-        Group('radios-%s' % pk, channel_layer=self.message.channel_layer).discard(self.message.reply_channel)
+        logger.info("unsub: %s", pk)
+        Group("radios-%s" % pk, channel_layer=self.message.channel_layer).discard(
+            self.message.reply_channel
+        )
 
     def serialize_data(self, instance):
         return RadioSerializer(instance).data
@@ -57,8 +61,8 @@ class VoteBinding(WebsocketBinding):
 
     @classmethod
     def group_names(cls, instance):
-        group = 'radios-%d' % instance.radio.pk
-        logger.info('update on group: %s', group)
+        group = "radios-%d" % instance.radio.pk
+        logger.info("update on group: %s", group)
         return [group]
 
     def serialize_data(self, instance):

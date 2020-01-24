@@ -6,25 +6,25 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'url', 'username', 'email', 'groups')
+        fields = ("id", "url", "username", "email", "groups")
 
 
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = ('id', 'name')
+        fields = ("id", "name")
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = ('id', 'name', 'cover_url', 'created_date', 'modified_date')
+        fields = ("id", "name", "cover_url", "created_date", "modified_date")
 
 
 class RadioVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = RadioVote
-        fields = ('id', 'owner', 'song', 'radio')
+        fields = ("id", "owner", "song", "radio")
 
 
 class RadioSerializer(serializers.ModelSerializer):
@@ -33,4 +33,12 @@ class RadioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Radio
-        fields = ('id', 'name', 'cover_url', 'created_date', 'modified_date', 'songs', 'votes')
+        fields = (
+            "id",
+            "name",
+            "cover_url",
+            "created_date",
+            "modified_date",
+            "songs",
+            "votes",
+        )
