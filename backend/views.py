@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from rest_framework import status
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .permissions import IsStaffOrReadOnly
@@ -21,7 +21,7 @@ class RadioViewSet(viewsets.ModelViewSet):
     serializer_class = RadioSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    @detail_route(methods=["post"])
+    @action(detail=True, methods=["post"])
     def upvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
         if "song_id" not in request.data:
@@ -35,7 +35,7 @@ class RadioViewSet(viewsets.ModelViewSet):
         else:
             return Response(None, status=status.HTTP_201_CREATED)
 
-    @detail_route(methods=["post"])
+    @action(detail=True, methods=["post"])
     def downvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
         if "song_id" not in request.data:

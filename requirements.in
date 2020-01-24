@@ -1,5 +1,5 @@
-django
-djangorestframework
-django-extensions
-channels
+black
 colorlog
+django
+django-extensions
+djangorestframework
