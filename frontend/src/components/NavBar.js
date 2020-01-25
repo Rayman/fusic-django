@@ -1,26 +1,23 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { useAuthState } from 'react-firebase-hooks/auth';
-
-import firebase from '../firebase';
-import 'firebase/auth';
 
 import NoSSR from '../components/NoSSR';
+import { useAuthState } from './hooks';
 
 import './NavBar.css';
 
 function LoginLogoutButton() {
-  const [user, loading, error] = useAuthState(firebase.auth());
+  const [user, loading, error] = useAuthState();
 
   if (error) throw error;
 
   function login() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    // var provider = new firebase.auth.GoogleAuthProvider();
+    // firebase.auth().signInWithRedirect(provider);
   }
 
   function logout() {
-    firebase.auth().signOut();
+    // firebase.auth().signOut();
   }
 
   if (loading) return null;

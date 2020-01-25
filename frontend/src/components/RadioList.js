@@ -1,19 +1,17 @@
 import React from 'react';
-import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { Link } from 'gatsby';
-
-import firebase from '../firebase';
-import 'firebase/firestore';
 
 import NoSSR from '../components/NoSSR';
 
 function RadioList() {
-  const [radios, loading, error] = useCollectionDataOnce(
-    firebase.firestore().collection('radios'),
-    {
-      idField: 'id',
-    }
-  );
+  // const [radios, loading, error] = useCollectionDataOnce(
+  //   firebase.firestore().collection('radios'),
+  //   {
+  //     idField: 'id',
+  //   }
+  // );
+  const [radios, loading, error] = [null, true, false];
+
   if (error) throw error;
   if (loading) return <div>Loading...</div>;
 

@@ -3,9 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-import firebase from '../firebase';
-import 'firebase/firestore';
-
 export default function AddRadio() {
   const [show, setShow] = useState(false);
 
@@ -15,23 +12,23 @@ export default function AddRadio() {
   function onCreate(e) {
     e.preventDefault();
 
-    const data = {
-      ...Object.fromEntries(new FormData(e.target)),
-      owner: firebase.auth().currentUser.uid,
-      created: firebase.firestore.FieldValue.serverTimestamp(),
-    };
-    console.log('Create new radio:', data);
+    // const data = {
+    //   ...Object.fromEntries(new FormData(e.target)),
+    //   owner: firebase.auth().currentUser.uid,
+    //   created: firebase.firestore.FieldValue.serverTimestamp(),
+    // };
+    // console.log('Create new radio:', data);
 
-    firebase
-      .firestore()
-      .collection('radios')
-      .add(data)
-      .then(function(docRef) {
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch(function(error) {
-        console.error('Error adding document: ', error);
-      });
+    // firebase
+    //   .firestore()
+    //   .collection('radios')
+    //   .add(data)
+    //   .then(function(docRef) {
+    //     console.log('Document written with ID: ', docRef.id);
+    //   })
+    //   .catch(function(error) {
+    //     console.error('Error adding document: ', error);
+    //   });
   }
 
   return (

@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  useDocumentData,
-  useCollectionData,
-} from 'react-firebase-hooks/firestore';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { FaPlus, FaPlay } from 'react-icons/fa';
-
-import firebase from '../firebase';
-import 'firebase/firestore';
 
 function AddButton() {
   const [show, setShow] = useState(false);
@@ -62,18 +55,19 @@ function AddButton() {
 }
 
 function SongList({ songQuery }) {
-  const [songs, loading, error] = useCollectionData(songQuery);
+  const [songs, loading, error] = [null, true, false];
   console.log('radio query', songQuery, songs, loading, error);
   return <pre>{JSON.stringify(songs)}</pre>;
 }
 
 function Radio({ radioId }) {
-  const [radio, loading, error] = useDocumentData(
-    firebase
-      .firestore()
-      .collection('radios')
-      .doc(radioId)
-  );
+  const [radio, loading, error] = [null, true, false];
+  // const [radio, loading, error] = useDocumentData(
+  //   firebase
+  //     .firestore()
+  //     .collection('radios')
+  //     .doc(radioId)
+  // );
 
   if (error) throw error;
   if (loading) return <div>Loading...</div>;
@@ -88,12 +82,12 @@ function Radio({ radioId }) {
       </Button>
       <AddButton />
       <pre>{JSON.stringify(radio, null, 2)}</pre>
-      <SongList
+      {/* <SongList
         songQuery={firebase
           .firestore()
           .collection('radios')
           .doc(radioId).collection('songs')}
-      />
+      /> */}
     </>
   );
 }
