@@ -4,6 +4,16 @@ module.exports = {
     description: 'Realtime Social Music Collaboration',
     author: '@gatsbyjs',
   },
+  proxy: [
+    {
+      prefix: '/api',
+      url: 'http://127.0.0.1:8000',
+    },
+    {
+      prefix: '/static',
+      url: 'http://127.0.0.1:8000',
+    },
+  ],
   plugins: [
     'gatsby-plugin-react-helmet',
     {

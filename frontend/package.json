@@ -5,7 +5,7 @@
   "author": "Ramon Wijnands <rayman747@hotmail.com>",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -p 3000",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
