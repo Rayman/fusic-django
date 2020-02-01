@@ -18,10 +18,10 @@ function AddButton() {
 
     const data = {
       ...Object.fromEntries(new FormData(e.target.form)),
-      // owner: firebase.auth().currentUser.uid,
-      // created: firebase.firestore.FieldValue.serverTimestamp(),
     };
+
     console.log('Add a new song:', data);
+    // TODO: api call
   }
 
   return (
@@ -54,20 +54,8 @@ function AddButton() {
   );
 }
 
-function SongList({ songQuery }) {
-  const [songs, loading, error] = [null, true, false];
-  console.log('radio query', songQuery, songs, loading, error);
-  return <pre>{JSON.stringify(songs)}</pre>;
-}
-
 function Radio({ radioId }) {
-  const [radio, loading, error] = [null, true, false];
-  // const [radio, loading, error] = useDocumentData(
-  //   firebase
-  //     .firestore()
-  //     .collection('radios')
-  //     .doc(radioId)
-  // );
+  const [radio, loading, error] = [null, true, false]; // TODO: api call
 
   if (error) throw error;
   if (loading) return <div>Loading...</div>;
@@ -82,12 +70,7 @@ function Radio({ radioId }) {
       </Button>
       <AddButton />
       <pre>{JSON.stringify(radio, null, 2)}</pre>
-      {/* <SongList
-        songQuery={firebase
-          .firestore()
-          .collection('radios')
-          .doc(radioId).collection('songs')}
-      /> */}
+      {/* TODO: list of songs */}
     </>
   );
 }

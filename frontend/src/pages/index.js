@@ -3,7 +3,7 @@ import React from 'react';
 import RadioList from '../components/RadioList';
 import AddRadio from '../components/AddRadio';
 import Layout from '../components/Layout';
-import SEO from '../components/seo';
+import SEO from '../components/SEO';
 
 export default function Home() {
   return (

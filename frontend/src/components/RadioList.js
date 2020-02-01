@@ -4,13 +4,7 @@ import { Link } from 'gatsby';
 import NoSSR from '../components/NoSSR';
 
 function RadioList() {
-  // const [radios, loading, error] = useCollectionDataOnce(
-  //   firebase.firestore().collection('radios'),
-  //   {
-  //     idField: 'id',
-  //   }
-  // );
-  const [radios, loading, error] = [null, true, false];
+  const [radios, loading, error] = [null, true, false]; // TODO: api call
 
   if (error) throw error;
   if (loading) return <div>Loading...</div>;

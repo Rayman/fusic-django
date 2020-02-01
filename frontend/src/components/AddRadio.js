@@ -12,23 +12,12 @@ export default function AddRadio() {
   function onCreate(e) {
     e.preventDefault();
 
-    // const data = {
-    //   ...Object.fromEntries(new FormData(e.target)),
-    //   owner: firebase.auth().currentUser.uid,
-    //   created: firebase.firestore.FieldValue.serverTimestamp(),
-    // };
-    // console.log('Create new radio:', data);
+    const data = {
+      ...Object.fromEntries(new FormData(e.target)),
+    };
+    console.log('Create new radio:', data);
 
-    // firebase
-    //   .firestore()
-    //   .collection('radios')
-    //   .add(data)
-    //   .then(function(docRef) {
-    //     console.log('Document written with ID: ', docRef.id);
-    //   })
-    //   .catch(function(error) {
-    //     console.error('Error adding document: ', error);
-    //   });
+    // TODO: api call
   }
 
   return (
