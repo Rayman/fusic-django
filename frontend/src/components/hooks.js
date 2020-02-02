@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import useSWR, { mutate, trigger } from 'swr';
 import Cookies from 'js-cookie';
 
@@ -34,4 +33,9 @@ export function createRadio(radio) {
       return radio;
     })
   );
+}
+
+export function useRadio(pk) {
+  if (!pk) throw new TypeError('pk argument is required');
+  return useSWR(`/api/radios/${pk}`, fetcher);
 }

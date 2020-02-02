@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { FaPlus, FaPlay } from 'react-icons/fa';
+import { useRadio } from './hooks';
 
 function AddButton() {
   const [show, setShow] = useState(false);
@@ -55,12 +56,11 @@ function AddButton() {
 }
 
 function Radio({ radioId }) {
-  const [radio, loading, error] = [null, true, false]; // TODO: api call
+  const { data: radio, error } = useRadio(radioId);
 
   if (error) throw error;
-  if (loading) return <div>Loading...</div>;
+  if (!radio) return <div>Loading...</div>;
 
-  if (!radio) return <div>404</div>;
   return (
     <>
       <h1>Bla</h1>
