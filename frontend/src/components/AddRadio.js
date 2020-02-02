@@ -3,8 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
+import { createRadio } from './hooks';
+
 export default function AddRadio() {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -15,9 +18,12 @@ export default function AddRadio() {
     const data = {
       ...Object.fromEntries(new FormData(e.target)),
     };
-    console.log('Create new radio:', data);
 
-    // TODO: api call
+    setLoading(true);
+    createRadio(data).then(() => {
+      setLoading(false);
+      setShow(false);
+    });
   }
 
   return (
@@ -40,8 +46,8 @@ export default function AddRadio() {
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" type="submit">
-              Create
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? 'Creating...' : 'Create'}
             </Button>
           </Modal.Footer>
         </Form>
