@@ -3,6 +3,7 @@ from django.db import models
 
 
 class Song(models.Model):
+    id = models.SlugField(primary_key=True, max_length=11)
     name = models.CharField(max_length=100)
 
     created_date = models.DateTimeField("created at", auto_now_add=True)

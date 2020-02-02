@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"playlists", views.PlaylistViewSet)
 router.register(r"radios", views.RadioViewSet)
+router.register(r"songs", views.SongViewSet)
 
 
 urlpatterns = router.urls

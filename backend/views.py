@@ -1,12 +1,27 @@
+import logging
+from operator import itemgetter
+
+import googleapiclient.discovery
+import googleapiclient.errors
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, status, viewsets, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Playlist, Radio, RadioVote
+from . import youtube
+from .models import Playlist, Radio, RadioVote, Song
 from .permissions import IsStaffOrReadOnly
-from .serializers import PlaylistSerializer, RadioSerializer, UserSerializer
+from .serializers import (
+    PlaylistSerializer,
+    RadioSerializer,
+    UserSerializer,
+    SongSerializer,
+)
+from .youtube import search
+
+logger = logging.getLogger(__name__)
 
 
 class PlaylistViewSet(viewsets.ModelViewSet):
@@ -53,3 +68,26 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsStaffOrReadOnly]
+
+
+class SongViewSet(viewsets.GenericViewSet):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    @action(detail=False, methods=["post"])
+    def search(self, request, pk=None, **kwargs):
+        results = search(request.data["q"])
+
+        # convert to a json
+        videos = []
+        for item in results["items"]:
+            assert item["kind"] == "youtube#searchResult"
+            video, created = Song.objects.update_or_create(
+                pk=item["id"]["videoId"],
+                defaults={"name": item["snippet"]["channelTitle"]},
+            )
+            videos.append(video)
+
+        serializer = self.get_serializer(videos, many=True)
+        return Response(serializer.data)

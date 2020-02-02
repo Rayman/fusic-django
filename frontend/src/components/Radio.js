@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Media from 'react-bootstrap/Media';
 import { FaPlus, FaPlay } from 'react-icons/fa';
-import { useRadio } from './hooks';
+
+import { useRadio, search } from './hooks';
 
 function AddButton() {
   const [show, setShow] = useState(false);
+  const [results, setResults] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,11 +20,10 @@ function AddButton() {
   function onSearch(e) {
     e.preventDefault();
 
-    const data = {
-      ...Object.fromEntries(new FormData(e.target.form)),
-    };
-
-    console.log('Add a new song:', data);
+    const { q } = Object.fromEntries(new FormData(e.target.form));
+    search(q).then(videos => {
+      setResults(videos);
+    });
   }
 
   return (
@@ -42,6 +45,22 @@ function AddButton() {
               </InputGroup.Append>
             </InputGroup>
           </Form>
+
+          {results.map(song => (
+            <Media>
+              <img
+                width={64}
+                height={64}
+                className="mr-3"
+                src="holder.js/64x64"
+                alt="Generic placeholder"
+              />
+              <Media.Body>
+                <h5>{song.name}</h5>
+                <p>20k views</p>
+              </Media.Body>
+            </Media>
+          ))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
