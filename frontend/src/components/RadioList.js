@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import NoSSR from '../components/NoSSR';
+import NoSSR from './NoSSR';
+import { useRadioList } from './hooks';
 
 function RadioList() {
-  const [radios, loading, error] = [null, true, false]; // TODO: api call
-
+  const { data: radios, error } = useRadioList();
   if (error) throw error;
-  if (loading) return <div>Loading...</div>;
+  if (!radios) return <div>Loading...</div>;
 
   return (
     <ul>
