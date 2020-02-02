@@ -29,8 +29,8 @@ class RadioVoteSerializer(serializers.ModelSerializer):
 
 
 class RadioSerializer(serializers.ModelSerializer):
-    votes = RadioVoteSerializer(many=True)
-    songs = SongSerializer(many=True)
+    votes = RadioVoteSerializer(many=True, read_only=True)
+    songs = SongSerializer(many=True, read_only=True)
 
     class Meta:
         model = Radio
