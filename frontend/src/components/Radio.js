@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import { FaPlus, FaPlay } from 'react-icons/fa';
 import { useRadio } from './hooks';
 
@@ -22,7 +21,6 @@ function AddButton() {
     };
 
     console.log('Add a new song:', data);
-    // TODO: api call
   }
 
   return (
