@@ -5,11 +5,11 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Media from 'react-bootstrap/Media';
-import { FaPlus, FaPlay } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
 import { search } from './hooks';
 
-export default function SearchModal({ show, onClose }) {
+export default function SearchModal({ show, onClose, onSelect }) {
   const [results, setResults] = useState([]);
 
   function onSearch(e) {
@@ -19,6 +19,10 @@ export default function SearchModal({ show, onClose }) {
     search(q).then(videos => {
       setResults(videos);
     });
+  }
+
+  function handleSelect(songId) {
+    onSelect(songId);
   }
 
   return (
@@ -51,7 +55,7 @@ export default function SearchModal({ show, onClose }) {
                   <h5>{song.name}</h5>
                   <p>20k views</p>
                 </Media.Body>
-                <Button variant="success">
+                <Button variant="success" onClick={() => handleSelect(song.id)}>
                   <FaPlus />
                 </Button>
               </Media>

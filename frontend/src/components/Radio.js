@@ -4,21 +4,24 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { FaPlus, FaPlay } from 'react-icons/fa';
 
-import { useRadio } from './hooks';
+import { useRadio, upVote } from './hooks';
 import SearchModal from './SearchModal';
 
-function AddSongButton() {
+function AddSongButton({ radioId }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSelect = songId => {
+    upVote(radioId, songId);
+  };
 
   return (
     <>
       <Button onClick={handleShow}>
         <FaPlus /> Add a song
       </Button>
-      <SearchModal show={show} onClose={handleClose} onSubmit={handleClose} />
+      <SearchModal show={show} onClose={handleClose} onSelect={handleSelect} />
     </>
   );
 }
@@ -36,7 +39,7 @@ function Radio({ radioId }) {
       <Button variant="success">
         <FaPlay /> Play
       </Button>
-      <AddSongButton />
+      <AddSongButton radioId={radio.id} />
       <pre>{JSON.stringify(radio, null, 2)}</pre>
       {/* TODO: list of songs */}
     </>

@@ -37,7 +37,7 @@ class RadioViewSet(viewsets.ModelViewSet):
     def upvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
         if "song_id" not in request.data:
-            return Response(None, status=status.HTTP_400_BAD_REQUEST)
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
         try:
             radio.votes.create(
                 owner_id=request.user.id, song_id=request.data["song_id"]
@@ -45,13 +45,13 @@ class RadioViewSet(viewsets.ModelViewSet):
         except IntegrityError:
             return Response(status=status.HTTP_409_CONFLICT)
         else:
-            return Response(None, status=status.HTTP_201_CREATED)
+            return Response({}, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])
     def downvote(self, request, pk=None, **kwargs):
         radio = self.get_object()
         if "song_id" not in request.data:
-            return Response(None, status=status.HTTP_400_BAD_REQUEST)
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
         try:
             radio.votes.get(
                 owner_id=request.user.id, song_id=request.data["song_id"]

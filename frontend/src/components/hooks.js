@@ -1,11 +1,20 @@
-import useSWR, { mutate, trigger } from 'swr';
+import useSWR, { trigger } from 'swr';
 import Cookies from 'js-cookie';
 
-function fetcher(...args) {
-  return fetch.apply(this, args).then(r => r.json());
+function fetcher(resource, init) {
+  if (init && init.method === 'POST') {
+    init = {
+      ...init,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken'),
+        ...init.headers,
+      },
+    };
+  }
+  console.log('fetcher', resource, init);
+  return fetch(resource, init).then(r => r.json());
 }
-
-// const fetcher = url => fetch(url).then(r => r.json());
 
 export function useAuthState() {
   // TODO: implement auth
@@ -20,14 +29,10 @@ export function useRadioList(options) {
 }
 
 export function createRadio(radio) {
-  console.log('createRadio', radio);
+  console.log('createRadio radio=', radio);
 
   return fetcher('/api/radios/', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': Cookies.get('csrftoken'),
-    },
     body: JSON.stringify(radio),
   }).then(r => {
     trigger('/api/radios/');
@@ -41,14 +46,20 @@ export function useRadio(pk) {
 }
 
 export function search(q) {
-  console.log('search', q);
+  console.log('search q=', q);
 
   return fetcher('/api/songs/search/', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': Cookies.get('csrftoken'),
-    },
     body: JSON.stringify({ q }),
+  });
+}
+
+export function upVote(radioId, songId) {
+  console.log('upVote radio=', radioId, 'song=', songId);
+  if (!radioId) throw new TypeError('radioId argument is required');
+  if (!songId) throw new TypeError('songId argument is required');
+  return fetcher(`/api/radios/${radioId}/upvote/`, {
+    method: 'POST',
+    body: JSON.stringify({ song_id: songId }),
   });
 }
