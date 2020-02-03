@@ -6,21 +6,16 @@ import googleapiclient.errors
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from rest_framework import permissions, status, viewsets, serializers
+from rest_framework import permissions, serializers, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
-
+from rest_framework.response import Response
 
 from . import youtube
 from .models import Playlist, Radio, RadioVote, Song
 from .permissions import IsStaffOrReadOnly
-from .serializers import (
-    PlaylistSerializer,
-    RadioSerializer,
-    UserSerializer,
-    SongSerializer,
-)
+from .serializers import (PlaylistSerializer, RadioSerializer, SongSerializer,
+                          UserSerializer)
 from .youtube import search
 
 logger = logging.getLogger(__name__)
