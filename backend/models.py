@@ -8,6 +8,7 @@ class Song(models.Model):
 
     created_date = models.DateTimeField("created at", auto_now_add=True)
     modified_date = models.DateTimeField("modified at", auto_now=True)
+    thumbnail = models.URLField()
 
     def __str__(self):
         return self.name

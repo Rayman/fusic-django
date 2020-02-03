@@ -44,7 +44,7 @@ export default function SearchModal({ show, onClose }) {
                   width={64}
                   height={64}
                   className="mr-3"
-                  src="holder.js/64x64"
+                  src={song.thumbnail}
                   alt="Generic placeholder"
                 />
                 <Media.Body>

@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = ("id", "name")
+        fields = ("id", "name", "thumbnail")
 
 
 class PlaylistSerializer(serializers.ModelSerializer):

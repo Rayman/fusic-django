@@ -77,15 +77,19 @@ class SongViewSet(viewsets.GenericViewSet):
     def search(self, request, pk=None, **kwargs):
         results = search(request.data["q"])
 
-        # convert to a json
+        # for each video, update_or_create
         videos = []
         for item in results["items"]:
             assert item["kind"] == "youtube#searchResult"
             video, created = Song.objects.update_or_create(
                 pk=item["id"]["videoId"],
-                defaults={"name": item["snippet"]["channelTitle"]},
+                defaults={
+                    "name": item["snippet"]["channelTitle"],
+                    "thumbnail": item["snippet"]["thumbnails"]["default"]["url"],
+                },
             )
             videos.append(video)
 
+        # finally convert the models to json
         serializer = self.get_serializer(videos, many=True)
         return Response(serializer.data)
