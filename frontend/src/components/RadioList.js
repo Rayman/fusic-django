@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 
@@ -29,16 +28,6 @@ function RadioList() {
         </Card>
       ))}
     </CardDeck>
-  );
-
-  return (
-    <ul>
-      {radios.map(radio => (
-        <li key={radio.id}>
-          <Link to={'/radios/' + radio.id}>{radio.name}</Link>
-        </li>
-      ))}
-    </ul>
   );
 }
 
