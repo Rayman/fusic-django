@@ -10,9 +10,11 @@ export default function Home() {
     <Layout>
       <SEO title="Home" />
       <h1>
-        Hello <AddRadio />
+        Latest Radios <AddRadio />
       </h1>
       <RadioList />
+      <h1>Latest Playlists</h1>
+      ...
     </Layout>
   );
 }

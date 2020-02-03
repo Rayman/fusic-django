@@ -9,6 +9,8 @@ from django.db import IntegrityError
 from rest_framework import permissions, status, viewsets, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.pagination import LimitOffsetPagination
+
 
 from . import youtube
 from .models import Playlist, Radio, RadioVote, Song
@@ -34,6 +36,7 @@ class RadioViewSet(viewsets.ModelViewSet):
     queryset = Radio.objects.all()
     serializer_class = RadioSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = LimitOffsetPagination
 
     @action(detail=True, methods=["post"])
     def upvote(self, request, pk=None, **kwargs):

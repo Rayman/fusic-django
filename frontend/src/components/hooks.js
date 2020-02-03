@@ -12,8 +12,11 @@ export function useAuthState() {
   return [null, false, false];
 }
 
-export function useRadioList() {
-  return useSWR('/api/radios/', fetcher);
+export function useRadioList(options) {
+  const params = new URLSearchParams(options).toString();
+  let url = '/api/radios/';
+  if (params) url += `?${params}`;
+  return useSWR(url, fetcher);
 }
 
 export function createRadio(radio) {
