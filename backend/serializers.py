@@ -32,6 +32,15 @@ class RadioSerializer(serializers.ModelSerializer):
     votes = RadioVoteSerializer(many=True, read_only=True)
     songs = SongSerializer(many=True, read_only=True)
 
+    def to_representation(self, instance):
+        data = super(RadioSerializer, self).to_representation(instance)
+
+        votes = data.pop("votes")
+        for song in data["songs"]:
+            song["votes"] = [vote for vote in votes if vote["song"] == song["id"]]
+
+        return data
+
     class Meta:
         model = Radio
         fields = (
