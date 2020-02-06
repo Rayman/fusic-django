@@ -9,8 +9,8 @@ from rest_framework.response import Response
 
 from .models import Playlist, Radio, RadioVote, Song
 from .permissions import IsStaffOrReadOnly
-from .serializers import (PlaylistSerializer, RadioSerializer, SongSerializer,
-                          UserSerializer)
+from .serializers import (PlaylistSerializer, RadioListSerializer,
+                          RadioSerializer, SongSerializer, UserSerializer)
 from .youtube import search
 
 logger = logging.getLogger(__name__)
@@ -25,8 +25,16 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 class RadioViewSet(viewsets.ModelViewSet):
     queryset = Radio.objects.order_by("-created_date")
     serializer_class = RadioSerializer
+    list_serializer_class = RadioListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = LimitOffsetPagination
+
+    def get_serializer_class(self):
+        """Alternative serializer for the list view to save data"""
+        if self.action == "list":
+            return RadioListSerializer
+        else:
+            return super(RadioViewSet, self).get_serializer_class()
 
     @action(detail=True, methods=["post"])
     def upvote(self, request, pk=None, **kwargs):
