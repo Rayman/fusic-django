@@ -1,17 +1,12 @@
 import logging
-from operator import itemgetter
 
-import googleapiclient.discovery
-import googleapiclient.errors
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from rest_framework import permissions, serializers, status, viewsets
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
-from . import youtube
 from .models import Playlist, Radio, RadioVote, Song
 from .permissions import IsStaffOrReadOnly
 from .serializers import (PlaylistSerializer, RadioSerializer, SongSerializer,
@@ -28,7 +23,7 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 
 
 class RadioViewSet(viewsets.ModelViewSet):
-    queryset = Radio.objects.all()
+    queryset = Radio.objects.order_by("-created_date")
     serializer_class = RadioSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = LimitOffsetPagination
