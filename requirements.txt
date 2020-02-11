@@ -13,7 +13,7 @@ click==7.0                # via black
 colorlog==4.1.0
 django-environ==0.4.5
 django-extensions==2.2.6
-django==3.0.2
+django==3.0.3
 djangorestframework==3.11.0
 google-api-python-client==1.7.11
 google-auth-httplib2==0.0.3  # via google-api-python-client
