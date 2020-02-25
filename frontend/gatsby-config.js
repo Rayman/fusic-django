@@ -10,6 +10,10 @@ module.exports = {
       url: 'http://127.0.0.1:8000',
     },
     {
+      prefix: '/admin',
+      url: 'http://127.0.0.1:8000',
+    },
+    {
       prefix: '/static',
       url: 'http://127.0.0.1:8000',
     },
