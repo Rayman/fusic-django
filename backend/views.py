@@ -84,6 +84,7 @@ class SongViewSet(viewsets.GenericViewSet):
         videos = []
         for item in results["items"]:
             assert item["kind"] == "youtube#searchResult"
+            assert item["id"]["kind"] == "youtube#video"
             video, created = Song.objects.update_or_create(
                 pk=item["id"]["videoId"],
                 defaults={
