@@ -1,8 +1,10 @@
-import googleapiclient.discovery
-import googleapiclient.errors
+import logging
+
+import requests
 from django.conf import settings
-from httplib2 import ServerNotFoundError
 from rest_framework.exceptions import APIException
+
+logger = logging.getLogger(__name__)
 
 
 class YoutubeServiceUnavailable(APIException):
@@ -11,14 +13,16 @@ class YoutubeServiceUnavailable(APIException):
     default_code = "service_unavailable"
 
 
-youtube = googleapiclient.discovery.build(
-    "youtube", "v3", developerKey=settings.YOUTUBE_API_KEY, cache_discovery=False,
-)
-
-
 def search(q):
-    request = youtube.search().list(part="snippet", q="the doors", type="video")
+    logger.info("youtube q=%r", q)
+    params = {
+        "key": settings.YOUTUBE_API_KEY,
+        "q": q,
+        "part": "snippet",
+        "type": "video",
+    }
     try:
-        return request.execute()
-    except ServerNotFoundError as e:
+        r = requests.get("https://www.googleapis.com/youtube/v3/search", params=params)
+        return r.json()
+    except requests.exceptions.RequestException as e:
         raise YoutubeServiceUnavailable() from e

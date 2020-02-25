@@ -4,4 +4,4 @@ django
 django-environ
 django-extensions
 djangorestframework
-google-api-python-client
+requests
