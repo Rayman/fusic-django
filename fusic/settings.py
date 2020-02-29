@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import warnings
 
 import environ
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env(DEBUG=(bool, False), FUSIC_YOUTUBE_KEY=(str, None))
 environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -137,3 +138,7 @@ LOGGING = {
 }
 
 YOUTUBE_API_KEY = env("FUSIC_YOUTUBE_KEY")
+if not YOUTUBE_API_KEY:
+    warnings.warn(
+        "missing YOUTUBE_API_KEY environment variable, some functionaly might not be working"
+    )
