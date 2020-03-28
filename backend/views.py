@@ -9,8 +9,13 @@ from rest_framework.response import Response
 
 from .models import Playlist, Radio, RadioVote, Song
 from .permissions import IsStaffOrReadOnly
-from .serializers import (PlaylistSerializer, RadioListSerializer,
-                          RadioSerializer, SongSerializer, UserSerializer)
+from .serializers import (
+    PlaylistSerializer,
+    RadioListSerializer,
+    RadioSerializer,
+    SongSerializer,
+    UserSerializer,
+)
 from .youtube import search
 
 logger = logging.getLogger(__name__)
