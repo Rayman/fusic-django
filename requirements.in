@@ -3,5 +3,6 @@ colorlog
 django
 django-environ
 django-extensions
+django-rest-auth
 djangorestframework
 requests
