@@ -7,7 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Media from 'react-bootstrap/Media';
 import { FaPlus } from 'react-icons/fa';
 
-import { search } from './hooks';
+import { search } from './api';
 
 export default function SearchModal({ show, onClose, onSelect }) {
   const [results, setResults] = useState([]);

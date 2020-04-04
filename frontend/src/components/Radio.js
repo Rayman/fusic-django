@@ -9,7 +9,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Container from 'react-bootstrap/Container';
 import { FaPlus, FaPlay, FaThumbsUp } from 'react-icons/fa';
 
-import { useRadio, upVote } from './hooks';
+import { useRadio } from './hooks';
+import { upVote } from './api';
 import SearchModal from './SearchModal';
 
 function AddSongButton({ radioId }) {

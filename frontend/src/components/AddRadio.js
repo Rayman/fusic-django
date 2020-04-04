@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-import { createRadio } from './hooks';
+import { createRadio } from './api';
 
 export default function AddRadio() {
   const [show, setShow] = useState(false);
