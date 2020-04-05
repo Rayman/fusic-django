@@ -1,11 +1,35 @@
 import useSWR from 'swr';
+import axios from 'axios';
 
 import { fetcher } from './api';
 
+// https://github.com/zeit/swr/blob/master/examples/axios/libs/useRequest.js
+function axiosFetcher(url) {
+  return axios({
+    method: 'GET',
+    url,
+  }).then(res => res.data);
+}
+
+/**
+ * Hook to check if the user is logged in
+ *
+ * Return type is [user, loading, error]
+ */
 export function useAuthState() {
-  // TODO: implement auth
   console.log('useAuthState');
-  return [null, false, false];
+  const { data, error } = useSWR('/api/auth/user/', axiosFetcher);
+
+  if (error) {
+    // if the status is forbidden, the use is not logged in
+    if (error.response.status === 403) {
+      return [null, false, false];
+    } else {
+      return [null, false, error];
+    }
+  } else {
+    return [data, false, false];
+  }
 }
 
 export function useRadioList(options) {

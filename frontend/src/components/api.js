@@ -1,6 +1,10 @@
 import { trigger } from 'swr';
 import Cookies from 'js-cookie';
 
+function validateStatus(status) {
+  return status >= 200 && status < 300;
+}
+
 export function fetcher(resource, init) {
   if (init && init.method === 'POST') {
     init = {
@@ -13,7 +17,13 @@ export function fetcher(resource, init) {
     };
   }
   console.log('fetcher', resource, init);
-  return fetch(resource, init).then(r => r.json());
+  return fetch(resource, init).then(r => {
+    if (validateStatus(r.status)) {
+      return r.json();
+    } else {
+      throw new Error('Request failed with status code ' + r.status);
+    }
+  });
 }
 
 export function createRadio(radio) {
