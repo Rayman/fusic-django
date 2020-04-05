@@ -1,29 +1,12 @@
 import { trigger } from 'swr';
-import Cookies from 'js-cookie';
+import axios from 'axios';
 
-function validateStatus(status) {
-  return status >= 200 && status < 300;
-}
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
-export function fetcher(resource, init) {
-  if (init && init.method === 'POST') {
-    init = {
-      ...init,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': Cookies.get('csrftoken'),
-        ...init.headers,
-      },
-    };
-  }
-  console.log('fetcher', resource, init);
-  return fetch(resource, init).then(r => {
-    if (validateStatus(r.status)) {
-      return r.json();
-    } else {
-      throw new Error('Request failed with status code ' + r.status);
-    }
-  });
+// https://github.com/zeit/swr/blob/master/examples/axios/libs/useRequest.js
+export function fetcher(url, config) {
+  return axios(url, config).then(res => res.data);
 }
 
 export function createRadio(radio) {
@@ -31,7 +14,7 @@ export function createRadio(radio) {
 
   return fetcher('/api/radios/', {
     method: 'POST',
-    body: JSON.stringify(radio),
+    data: radio,
   }).then(r => {
     trigger('/api/radios/');
     return r;
@@ -43,7 +26,7 @@ export function search(q) {
 
   return fetcher('/api/songs/search/', {
     method: 'POST',
-    body: JSON.stringify({ q }),
+    data: { q },
   });
 }
 
@@ -53,6 +36,6 @@ export function upVote(radioId, songId) {
   if (!songId) throw new TypeError('songId argument is required');
   return fetcher(`/api/radios/${radioId}/upvote/`, {
     method: 'POST',
-    body: JSON.stringify({ song_id: songId }),
+    data: { song_id: songId },
   });
 }
