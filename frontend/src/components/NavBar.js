@@ -3,15 +3,36 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { FaUser } from 'react-icons/fa';
-import { FaLock } from 'react-icons/fa';
+import Alert from 'react-bootstrap/Alert';
+import { FaUser, FaLock } from 'react-icons/fa';
 
 import NoSSR from '../components/NoSSR';
+import { login } from './api';
 import { useAuthState } from './hooks';
 
 import './NavBar.css';
 
 function LoginModal({ show, onClose }) {
+  const [errors, setErrors] = useState({});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const data = Object.fromEntries(new FormData(e.target));
+    login(data)
+      .then(result => {
+        console.log('result', result);
+      })
+      .catch(err => {
+        if (err.response.status == 400) {
+          const { email, password } = err.response.data;
+          setErrors({ email, password });
+        } else {
+          setErrors({ message: err.message });
+        }
+      });
+  }
+
   return (
     <Modal show={show} onHide={onClose} size="sm">
       <Modal.Header closeButton>
@@ -19,30 +40,48 @@ function LoginModal({ show, onClose }) {
       </Modal.Header>
 
       <Modal.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
+        <Form onSubmit={handleSubmit}>
+          {errors.message && <Alert variant="danger">{errors.message}</Alert>}
+
+          <Form.Group>
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroupPrepend">
+                <InputGroup.Text>
                   <FaUser />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control type="email" placeholder="Email" />
+              <Form.Control
+                type="text"
+                name="email"
+                placeholder="Email"
+                isInvalid={errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group>
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>
                   <FaLock />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                isInvalid={errors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.password}
+              </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
 
-          <Button variant="success" block>
+          <Button variant="success" block type="submit">
             Login
           </Button>
         </Form>

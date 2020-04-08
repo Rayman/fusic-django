@@ -39,3 +39,12 @@ export function upVote(radioId, songId) {
     data: { song_id: songId },
   });
 }
+
+export function login({ email, password }) {
+  console.log('login');
+
+  return fetcher('/api/auth/login/', {
+    method: 'POST',
+    data: { email, password },
+  });
+}
