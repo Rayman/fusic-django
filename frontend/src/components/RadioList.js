@@ -15,7 +15,7 @@ function RadioList() {
   return (
     <CardDeck>
       {radios.map(radio => (
-        <Card key={radio.id} style={{ width: '18rem' }}>
+        <Card key={radio.id}>
           <Card.Img variant="top" src="https://picsum.photos/100" />
           <Card.Body>
             <Card.Title>
