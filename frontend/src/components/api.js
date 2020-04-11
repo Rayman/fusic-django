@@ -46,5 +46,19 @@ export function login({ email, password }) {
   return fetcher('/api/auth/login/', {
     method: 'POST',
     data: { email, password },
+  }).then(result => {
+    trigger('/api/auth/user/');
+    return result;
+  });
+}
+
+export function logout() {
+  console.log('logout');
+
+  return fetcher('/api/auth/logout/', {
+    method: 'POST',
+  }).then(result => {
+    trigger('/api/auth/user/');
+    return result;
   });
 }

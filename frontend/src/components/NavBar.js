@@ -7,7 +7,7 @@ import Alert from 'react-bootstrap/Alert';
 import { FaUser, FaLock } from 'react-icons/fa';
 
 import NoSSR from '../components/NoSSR';
-import { login } from './api';
+import { login, logout } from './api';
 import { useAuthState } from './hooks';
 
 import './NavBar.css';
@@ -21,7 +21,8 @@ function LoginModal({ show, onClose }) {
     const data = Object.fromEntries(new FormData(e.target));
     login(data)
       .then(result => {
-        console.log('result', result);
+        setErrors({});
+        onClose();
       })
       .catch(err => {
         if (err.response.status == 400) {
@@ -118,12 +119,14 @@ function LoginButton() {
 }
 
 function LogoutButton() {
-  function logout() {
-    // TODO: logout
+  function handleLogout() {
+    logout().then(result => {
+      console.log('result', result);
+    });
   }
 
   return (
-    <Button className="float-right" variant="link" onClick={logout}>
+    <Button className="float-right" variant="link" onClick={handleLogout}>
       Logout
     </Button>
   );
