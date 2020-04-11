@@ -9,7 +9,9 @@ import { fetcher } from './api';
  */
 export function useAuthState() {
   console.log('useAuthState');
-  const { data, error } = useSWR('/api/auth/user/', fetcher);
+  const { data, error } = useSWR('/api/auth/user/', fetcher, {
+    shouldRetryOnError: false,
+  });
 
   if (error) {
     // if the status is forbidden, the use is not logged in
