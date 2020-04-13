@@ -27,9 +27,10 @@ export function useAuthState() {
 
 export function useRadioList(options) {
   const params = new URLSearchParams(options).toString();
-  let url = '/api/radios/';
-  if (params) url += `?${params}`;
-  return useSWR(url, fetcher);
+  let key = '/api/radios/';
+  const url = params ? key + `?${params}` : key;
+  // cache all options under the same key to easily invalidate
+  return useSWR(key, key => fetcher(url));
 }
 
 export function useRadio(pk) {

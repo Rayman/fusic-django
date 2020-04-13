@@ -15,9 +15,7 @@ export default function AddRadio() {
   function onCreate(e) {
     e.preventDefault();
 
-    const data = {
-      ...Object.fromEntries(new FormData(e.target)),
-    };
+    const data = Object.fromEntries(new FormData(e.target));
 
     setLoading(true);
     createRadio(data).then(() => {
