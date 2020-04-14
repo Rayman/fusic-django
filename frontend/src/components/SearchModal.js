@@ -12,10 +12,10 @@ import { search } from './api';
 export default function SearchModal({ show, onClose, onSelect }) {
   const [results, setResults] = useState([]);
 
-  function onSearch(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    const { q } = Object.fromEntries(new FormData(e.target.form));
+    const { q } = Object.fromEntries(new FormData(e.target));
     search(q).then(videos => {
       setResults(videos);
     });
@@ -32,11 +32,11 @@ export default function SearchModal({ show, onClose, onSelect }) {
           <Modal.Title>Add a song</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <InputGroup>
               <Form.Control type="search" name="q" placeholder="Search..." />
               <InputGroup.Append>
-                <Button onClick={onSearch}>Search</Button>
+                <Button type="submit">Search</Button>
               </InputGroup.Append>
             </InputGroup>
           </Form>
