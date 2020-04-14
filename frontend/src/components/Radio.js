@@ -9,7 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Container from 'react-bootstrap/Container';
 import { FaPlus, FaPlay, FaThumbsUp } from 'react-icons/fa';
 
-import { useRadio } from './hooks';
+import { useRadio, useAuthState } from './hooks';
 import { upVote } from './api';
 import SearchModal from './SearchModal';
 
@@ -50,8 +50,10 @@ function UpVote() {
 }
 
 function Radio({ radioId }) {
-  const { data: radio, error } = useRadio(radioId);
+  const [user, _, authError] = useAuthState();
+  if (authError) throw authError;
 
+  const { data: radio, error } = useRadio(radioId);
   if (error) throw error;
   if (!radio) return <div>Loading...</div>;
 
@@ -73,7 +75,8 @@ function Radio({ radioId }) {
             <Button variant="success">
               <FaPlay /> Play
             </Button>
-            <AddSongButton radioId={radio.id} />
+
+            {user && <AddSongButton radioId={radio.id} />}
           </p>
         </Media.Body>
       </Media>
@@ -81,7 +84,10 @@ function Radio({ radioId }) {
       <Container>
         <ListGroup variant="flush">
           {radio.songs.map(song => (
-            <ListGroup.Item className="d-flex justify-content-between">
+            <ListGroup.Item
+              className="d-flex justify-content-between"
+              key={song.id}
+            >
               <div className="flex-grow-1">{song.name}</div>
 
               <UpVote />

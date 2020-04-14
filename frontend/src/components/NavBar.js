@@ -25,7 +25,7 @@ function LoginModal({ show, onClose }) {
         onClose();
       })
       .catch(err => {
-        if (err.response.status == 400) {
+        if (err.response.status === 400) {
           const { email, password } = err.response.data;
           setErrors({ email, password });
         } else {
